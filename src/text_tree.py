@@ -27,11 +27,12 @@ class Node_data(object):
 
 def subtract_project_contents_section(readme_tree, readme_path):
     # Find the Project Contents section
+    contents_root = None
     for node in readme_tree.all_nodes():
         if node.data.clean_text.lower() == "Project Contents".lower():
             contents_root = node
             break
-    if not contents_root:
+    if contents_root is None:
         raise ValueError("Failed to find the project content tree in readme.")
     line_numbers  = sorted([node.identifier for node in 
         readme_tree.subtree(contents_root.identifier).all_nodes()])
